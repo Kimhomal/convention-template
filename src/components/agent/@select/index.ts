@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { InsurpartsResponse } from '../../../apis/@axios/types';
-import { RepairShopById } from '../../../apis/insurparts/agent/services';
+import { RepairShopById } from '../../../apis/insurparts/agent/types';
 
 export interface SelectedRepsirshopById {
   name: string;

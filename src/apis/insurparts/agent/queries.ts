@@ -1,6 +1,7 @@
 import { InsurpartsResponse } from '../../@axios/types';
 import { UseQueryOptions, useQuery } from '@tanstack/react-query';
-import { RepairShopById, getRepairshopById } from './services';
+import { getRepairshopById } from './services';
+import { RepairShopById } from './types';
 import { AxiosResponse } from 'axios';
 
 export const useRepairshopByIdQuery = <T>(
