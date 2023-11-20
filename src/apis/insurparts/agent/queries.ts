@@ -1,8 +1,10 @@
-import { InsurpartsResponse } from '../../@axios/types';
-import { UseQueryOptions, useQuery } from '@tanstack/react-query';
-import { getRepairshopById } from './services';
-import { RepairShopById } from './types';
 import { AxiosResponse } from 'axios';
+import { UseQueryOptions, useQuery } from '@tanstack/react-query';
+
+import { InsurpartsResponse } from '../../@axios/types';
+
+import AgentApis from './services';
+import { RepairShopById } from './types';
 
 export const useRepairshopByIdQuery = <T>(
   repairshopId: number,
@@ -18,8 +20,14 @@ export const useRepairshopByIdQuery = <T>(
 ) => {
   return useQuery({
     queryKey: ['repairshop', repairshopId],
-    queryFn: () => getRepairshopById(repairshopId),
+    queryFn: () => AgentApis.getRepairshopById(repairshopId),
     enabled: !!repairshopId,
     ...queryOptions,
   });
 };
+
+const AgentQueries = {
+  useRepairshopByIdQuery,
+};
+
+export default AgentQueries;
