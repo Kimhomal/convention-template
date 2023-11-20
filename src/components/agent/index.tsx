@@ -1,5 +1,5 @@
 import { useRepairshopByIdQuery } from '../../apis';
-import { SelectedRepsirshopById, selectRepairshopById } from './@select';
+import { SelectedRepsirshopById, selectRepairshopById } from './select';
 
 const Agent = () => {
   const { data, isLoading, error } =
