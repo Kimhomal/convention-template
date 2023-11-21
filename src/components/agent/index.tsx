@@ -1,11 +1,14 @@
 import { AgentQueries } from '../../apis';
-import { SelectedRepsirshopById, selectRepairshopById } from './select';
+import { SelectedRepairshopById, selectRepairshopById } from './select';
 
 const Agent = () => {
   const { data, isLoading, error } =
-    AgentQueries.useRepairshopByIdQuery<SelectedRepsirshopById>(417, {
-      select: selectRepairshopById,
-    });
+    AgentQueries.useRepairshopByIdQuery<SelectedRepairshopById>(
+      { id: 417 },
+      {
+        select: selectRepairshopById,
+      },
+    );
 
   if (data === undefined || isLoading) {
     return <div>Loading...</div>;
