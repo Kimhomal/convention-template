@@ -5,14 +5,7 @@ import {
 } from './select';
 
 const AgentInfiniteList = () => {
-  const {
-    data,
-    isLoading,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } =
+  const { data, status, fetchNextPage, hasNextPage, isFetchingNextPage } =
     AgentQueries.useRepairShopAndPartsListQuery<SelectedRepsirShopAndPartsItem>(
       {
         page_size: 200,
@@ -20,11 +13,10 @@ const AgentInfiniteList = () => {
       { select: selectRepairShopAndPartsList },
     );
 
-  if (data === undefined || isLoading) {
+  if (status === 'loading') {
     return <div>Loading...</div>;
   }
-
-  if (error) {
+  if (status === 'error') {
     return <div>Error!</div>;
   }
 

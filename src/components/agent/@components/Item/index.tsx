@@ -2,7 +2,7 @@ import { AgentQueries } from '../../../../apis';
 import { SelectedRepsirShopById, selectRepairshopById } from './select';
 
 const AgentItem = () => {
-  const { data, isLoading, error } =
+  const { data, status } =
     AgentQueries.useRepairShopByIdQuery<SelectedRepsirShopById>(
       { repairShopId: 417 },
       {
@@ -10,11 +10,10 @@ const AgentItem = () => {
       },
     );
 
-  if (data === undefined || isLoading) {
+  if (status === 'loading') {
     return <div>Loading...</div>;
   }
-
-  if (error) {
+  if (status === 'error') {
     return <div>Error!</div>;
   }
 
