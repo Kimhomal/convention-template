@@ -1,33 +1,76 @@
 import { AxiosResponse } from 'axios';
-import { UseQueryOptions, useQuery } from '@tanstack/react-query';
+import {
+  UseInfiniteQueryOptions,
+  UseQueryOptions,
+  useInfiniteQuery,
+  useQuery,
+} from '@tanstack/react-query';
 
 import { InsurpartsResponse } from '../../@axios/types';
 
 import AgentApis from './services';
-import { RepairShopById } from './types';
+import {
+  GetRepairShopByIdRes,
+  GetRepairShopAndPartsListReq,
+  GetRepairShopAndPartsListRes,
+  GetRepairShopByIdReq,
+} from './types';
 
-export const useRepairshopByIdQuery = <T>(
-  repairshopId: number,
-  queryOptions: Omit<
+type RepairShopByIdRes = AxiosResponse<
+  InsurpartsResponse<GetRepairShopByIdRes>
+>;
+
+const useRepairShopByIdQuery = <TData>(
+  axiosOptions: GetRepairShopByIdReq,
+  queryOptions?: Omit<
     UseQueryOptions<
-      AxiosResponse<InsurpartsResponse<RepairShopById>>,
+      RepairShopByIdRes,
       Error,
-      T,
-      (string | number)[]
+      TData,
+      (string | GetRepairShopByIdReq)[]
     >,
     'queryKey' | 'queryFn' | 'enabled'
   >,
 ) => {
+  const { repairShopId } = axiosOptions;
   return useQuery({
-    queryKey: ['repairshop', repairshopId],
-    queryFn: () => AgentApis.getRepairshopById(repairshopId),
-    enabled: !!repairshopId,
+    queryKey: ['repairShop', axiosOptions],
+    queryFn: () => AgentApis.getRepairShopById({ repairShopId }),
+    enabled: !!repairShopId,
+    ...queryOptions,
+  });
+};
+
+type RepairShopAndPartsListRes = AxiosResponse<
+  InsurpartsResponse<GetRepairShopAndPartsListRes>
+>;
+
+const useRepairShopAndPartsListQuery = <TData>(
+  axiosOptions: GetRepairShopAndPartsListReq,
+  queryOptions?: Omit<
+    UseInfiniteQueryOptions<
+      RepairShopAndPartsListRes,
+      Error,
+      TData,
+      RepairShopAndPartsListRes,
+      (string | GetRepairShopAndPartsListReq)[]
+    >,
+    'queryKey' | 'queryFn'
+  >,
+) => {
+  return useInfiniteQuery({
+    queryKey: ['repairShopAndParts', axiosOptions],
+    queryFn: () => AgentApis.getRepairshopAndPartsList(axiosOptions),
+    getNextPageParam: (lastPage) => lastPage.data.meta.page?.links.next,
+    getPreviousPageParam: (firstPage) =>
+      firstPage.data.meta.page?.links.previous,
     ...queryOptions,
   });
 };
 
 const AgentQueries = {
-  useRepairshopByIdQuery,
+  useRepairShopByIdQuery,
+  useRepairShopAndPartsListQuery,
 };
 
 export default AgentQueries;

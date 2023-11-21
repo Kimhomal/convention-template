@@ -1,6 +1,11 @@
 import { AxiosRequestConfig } from 'axios';
 
-interface Page {
+export interface PageReq {
+  page: number;
+  page_size: number;
+}
+
+interface PageRes {
   current_page: number;
   links: { next?: string; previous?: string };
   page_size: number;
@@ -8,7 +13,7 @@ interface Page {
 }
 
 export interface InsurpartsMeta {
-  page?: Page;
+  page?: PageRes;
   code?: number;
   systemCode?: string;
   userMessage?: string;

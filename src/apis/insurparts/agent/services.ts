@@ -1,16 +1,26 @@
 import { request } from '../../@axios/utils';
 
 import AGENT_ENDPOINTS from './endpoints';
-import { RepairShopById } from './types';
+import {
+  GetRepairShopByIdReq,
+  GetRepairShopByIdRes,
+  GetRepairShopAndPartsListReq,
+  GetRepairShopAndPartsListRes,
+} from './types';
 
-const getRepairshopById = (repairshopId: number) => {
-  return request<RepairShopById>(
-    AGENT_ENDPOINTS.getRepairshopById(repairshopId),
+const getRepairShopById = (req: GetRepairShopByIdReq) => {
+  return request<GetRepairShopByIdRes>(AGENT_ENDPOINTS.getRepairshopById(req));
+};
+
+const getRepairshopAndPartsList = (req: GetRepairShopAndPartsListReq) => {
+  return request<GetRepairShopAndPartsListRes>(
+    AGENT_ENDPOINTS.getRepairshopAndPartsList(req),
   );
 };
 
 const AgentApis = {
-  getRepairshopById,
+  getRepairShopById,
+  getRepairshopAndPartsList,
 };
 
 export default AgentApis;

@@ -1,13 +1,20 @@
 import { Endpoint } from '../../@axios/types';
+import { GetRepairShopByIdReq, GetRepairShopAndPartsListReq } from './types';
 
 type AgentEndpoints = {
-  getRepairshopById: (repairshopId: number) => Endpoint;
+  getRepairshopById: (req: GetRepairShopByIdReq) => Endpoint;
+  getRepairshopAndPartsList: (req: GetRepairShopAndPartsListReq) => Endpoint;
 };
 
 const AGENT_ENDPOINTS: AgentEndpoints = {
-  getRepairshopById: (repairshopId: number) => ({
-    url: `/agent/carcenter/${repairshopId}`,
+  getRepairshopById: (req: GetRepairShopByIdReq) => ({
+    url: `/agent/carcenter/${req.repairShopId}`,
     method: 'GET',
+  }),
+  getRepairshopAndPartsList: (req: GetRepairShopAndPartsListReq) => ({
+    url: '/agent/carcenter-parts/list',
+    method: 'GET',
+    params: { ...req },
   }),
 };
 

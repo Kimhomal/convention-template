@@ -1,16 +1,16 @@
 import { AxiosResponse } from 'axios';
-import { InsurpartsResponse } from '../../apis/@axios/types';
-import { RepairShopById } from '../../apis/insurparts/agent/types';
+import { InsurpartsResponse } from '../../../../apis/@axios/types';
+import { GetRepairShopByIdRes } from '../../../../apis/insurparts/agent/types';
 
-export interface SelectedRepsirshopById {
+export interface SelectedRepsirShopById {
   name: string;
   address: string;
-  serviceBadges: RepairShopById['service_badge'];
+  serviceBadges: GetRepairShopByIdRes['service_badge'];
 }
 
 export const selectRepairshopById = (
-  response: AxiosResponse<InsurpartsResponse<RepairShopById>>,
-): SelectedRepsirshopById => {
+  response: AxiosResponse<InsurpartsResponse<GetRepairShopByIdRes>>,
+): SelectedRepsirShopById => {
   const {
     data: { name, agent_carcenter, agent_virtual_carcenter, service_badge },
   } = response.data;
