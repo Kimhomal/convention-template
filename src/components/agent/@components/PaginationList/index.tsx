@@ -23,8 +23,15 @@ const AgentPaginationList = () => {
         page: currentPage,
         page_size: 200,
       },
-      { select: selectRepairShopAndPartsList },
+      { select: selectRepairShopAndPartsList, keepPreviousData: true },
     );
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+  if (status === 'error') {
+    return <div>Error!</div>;
+  }
 
   return (
     <div style={{ width: 360, height: 540, paddingInline: 10 }}>
@@ -41,38 +48,30 @@ const AgentPaginationList = () => {
         <span>대표명</span>
       </div>
 
-      <div style={{ height: '100%' }}>
-        {status === 'loading' ? (
-          <div>Loading...</div>
-        ) : status === 'error' ? (
-          <div>Error!</div>
-        ) : (
-          <div style={{ height: 540, paddingInline: 10, overflowY: 'scroll' }}>
-            <ul
+      <div style={{ height: 540, paddingInline: 10, overflowY: 'scroll' }}>
+        <ul
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 10,
+            padding: 0,
+            margin: 0,
+          }}
+        >
+          {data.pages.map((d) => (
+            <li
+              key={d.id}
               style={{
                 display: 'flex',
-                flexDirection: 'column',
-                gap: 10,
-                padding: 0,
-                margin: 0,
+                justifyContent: 'space-between',
               }}
             >
-              {data.pages.map((d) => (
-                <li
-                  key={d.id}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <span>{d.id}</span>
-                  <span>{d.name}</span>
-                  <span>{d.ownerName}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+              <span>{d.id}</span>
+              <span>{d.name}</span>
+              <span>{d.ownerName}</span>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div
