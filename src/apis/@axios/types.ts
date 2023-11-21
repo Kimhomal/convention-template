@@ -1,20 +1,20 @@
 import { AxiosRequestConfig } from 'axios';
 
 export interface PageReq {
-  page: number;
-  page_size: number;
+  page?: number;
+  page_size?: number;
 }
 
 interface PageRes {
   current_page: number;
-  links: { next?: string; previous?: string };
+  links: { next: string | null; previous: string | null };
   page_size: number;
   total_count: number;
 }
 
 export interface InsurpartsMeta {
-  page?: PageRes;
-  code?: number;
+  page: PageRes;
+  code: number;
   systemCode?: string;
   userMessage?: string;
   systemMessage?: string;

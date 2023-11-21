@@ -7,6 +7,7 @@ import {
 } from '@tanstack/react-query';
 
 import { InsurpartsResponse } from '../../@axios/types';
+import { getNextPageParam, getPreviousPageParam } from '../../@axios/utils';
 
 import AgentApis from './services';
 import {
@@ -60,10 +61,10 @@ const useRepairShopAndPartsListQuery = <TData>(
 ) => {
   return useInfiniteQuery({
     queryKey: ['repairShopAndParts', axiosOptions],
-    queryFn: () => AgentApis.getRepairshopAndPartsList(axiosOptions),
-    getNextPageParam: (lastPage) => lastPage.data.meta.page?.links.next,
-    getPreviousPageParam: (firstPage) =>
-      firstPage.data.meta.page?.links.previous,
+    queryFn: ({ pageParam = 1 }) =>
+      AgentApis.getRepairshopAndPartsList({ page: pageParam, ...axiosOptions }),
+    getPreviousPageParam,
+    getNextPageParam,
     ...queryOptions,
   });
 };

@@ -4,12 +4,18 @@ import {
   selectRepairShopAndPartsList,
 } from './select';
 
-const AgentList = () => {
-  const { data, isLoading, error } =
+const AgentInfiniteList = () => {
+  const {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } =
     AgentQueries.useRepairShopAndPartsListQuery<SelectedRepsirShopAndPartsItem>(
       {
-        page: 1,
-        page_size: 10,
+        page_size: 200,
       },
       { select: selectRepairShopAndPartsList },
     );
@@ -23,7 +29,9 @@ const AgentList = () => {
   }
 
   return (
-    <div style={{ width: 300 }}>
+    <div
+      style={{ width: 360, height: 600, paddingInline: 10, overflow: 'scroll' }}
+    >
       <div
         style={{
           display: 'flex',
@@ -31,6 +39,7 @@ const AgentList = () => {
           fontWeight: 700,
         }}
       >
+        <span>번호</span>
         <span>업체명</span>
         <span>대표명</span>
       </div>
@@ -42,21 +51,33 @@ const AgentList = () => {
           padding: 0,
         }}
       >
-        {data.pages.map((i) => (
+        {data.pages.map((d) => (
           <li
-            key={i.id}
+            key={d.id}
             style={{
               display: 'flex',
               justifyContent: 'space-between',
             }}
           >
-            <span>{i.name}</span>
-            <span>{i.ownerName}</span>
+            <span>{d.id}</span>
+            <span>{d.name}</span>
+            <span>{d.ownerName}</span>
           </li>
         ))}
       </ul>
+
+      <button
+        onClick={() => fetchNextPage()}
+        disabled={!hasNextPage || isFetchingNextPage}
+      >
+        {isFetchingNextPage
+          ? 'Loading more...'
+          : hasNextPage
+            ? 'Load More'
+            : 'Nothing more to load'}
+      </button>
     </div>
   );
 };
 
-export default AgentList;
+export default AgentInfiniteList;
