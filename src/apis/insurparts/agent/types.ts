@@ -18,12 +18,9 @@ export interface GetRepairShopAndPartsListReq extends PageReq {
   // 생략
 }
 
-interface RepairShopAndPartsItem {
+export interface GetRepairShopAndPartsListRes {
   id: number;
   name: string;
   owner_name: string;
   // 생략
-}
-export interface GetRepairShopAndPartsListRes {
-  results: RepairShopAndPartsItem[];
 }

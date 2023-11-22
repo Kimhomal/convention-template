@@ -1,7 +1,7 @@
 import { InfiniteData } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
-import { InsurpartsResponse } from '../../../../apis/@axios/types';
+import { InsurpartsPageResponse } from '../../../../apis/@axios/types';
 import { GetRepairShopAndPartsListRes } from '../../../../apis/insurparts/agent/types';
 
 export interface SelectedRepsirShopAndPartsItem {
@@ -12,7 +12,7 @@ export interface SelectedRepsirShopAndPartsItem {
 
 export const selectRepairShopAndPartsList = (
   response: InfiniteData<
-    AxiosResponse<InsurpartsResponse<GetRepairShopAndPartsListRes>>
+    AxiosResponse<InsurpartsPageResponse<GetRepairShopAndPartsListRes>>
   >,
 ): InfiniteData<SelectedRepsirShopAndPartsItem> => {
   const allItems = response.pages.flatMap((page) => page.data.data.results);

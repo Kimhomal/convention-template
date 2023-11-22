@@ -6,7 +6,7 @@ import {
   useQuery,
 } from '@tanstack/react-query';
 
-import { InsurpartsResponse } from '../../@axios/types';
+import { InsurpartsPageResponse, InsurpartsResponse } from '../../@axios/types';
 import { getNextPageParam, getPreviousPageParam } from '../../@axios/utils';
 
 import AgentApis from './services';
@@ -43,7 +43,7 @@ const useRepairShopByIdQuery = <TData>(
 };
 
 type RepairShopAndPartsListRes = AxiosResponse<
-  InsurpartsResponse<GetRepairShopAndPartsListRes>
+  InsurpartsPageResponse<GetRepairShopAndPartsListRes>
 >;
 
 const useRepairShopAndPartsListQuery = <TData>(

@@ -1,12 +1,12 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import insurpartsInstance from './instances/insurparts';
-import { Endpoint, InsurpartsResponse } from './types';
+import { Endpoint, InsurpartsPageResponse } from './types';
 
-export const request = async <T>(
+export const request = async <TResponse>(
   endpoint: Endpoint,
   options?: AxiosRequestConfig,
-): Promise<AxiosResponse<InsurpartsResponse<T>>> => {
+): Promise<AxiosResponse<TResponse>> => {
   try {
     switch (endpoint.method) {
       case 'GET': {
@@ -40,7 +40,7 @@ export const request = async <T>(
 };
 
 export const getPreviousPageParam = (
-  firstPage: AxiosResponse<InsurpartsResponse<unknown>>,
+  firstPage: AxiosResponse<InsurpartsPageResponse<unknown>>,
 ) => {
   return firstPage.data.meta.page.links.previous
     ? firstPage.data.meta.page.current_page - 1
@@ -48,7 +48,7 @@ export const getPreviousPageParam = (
 };
 
 export const getNextPageParam = (
-  lastPage: AxiosResponse<InsurpartsResponse<unknown>>,
+  lastPage: AxiosResponse<InsurpartsPageResponse<unknown>>,
 ) => {
   return lastPage.data.meta.page.links.next
     ? lastPage.data.meta.page.current_page + 1

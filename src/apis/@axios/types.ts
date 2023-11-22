@@ -14,7 +14,15 @@ interface PageRes {
 
 // FIXME: 응답이 없을 때 빈 문자열 대신 null을 반환하도록 백엔드에 요청
 export interface InsurpartsMeta {
-  page: PageRes | '';
+  page: '';
+  code: number;
+  systemCode: string | '';
+  userMessage: string | '';
+  systemMessage: string | '';
+}
+
+export interface InsurpartsPageMeta {
+  page: PageRes;
   code: number;
   systemCode: string | '';
   userMessage: string | '';
@@ -24,6 +32,13 @@ export interface InsurpartsMeta {
 export interface InsurpartsResponse<T> {
   data: T;
   meta: InsurpartsMeta;
+}
+
+export interface InsurpartsPageResponse<T> {
+  data: {
+    results: T[];
+  };
+  meta: InsurpartsPageMeta;
 }
 
 export interface Endpoint extends AxiosRequestConfig {
