@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-query';
 
 import { InsurpartsPageResponse, InsurpartsResponse } from '../../@axios/types';
-import { getNextPageParam, getPreviousPageParam } from '../../@axios/utils';
+import { getNextPageParam, getPreviousPageParam } from '../utils';
 
 import AgentApis from './services';
 import {

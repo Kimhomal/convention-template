@@ -1,7 +1,7 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import insurpartsInstance from './instances/insurparts';
-import { Endpoint, InsurpartsPageResponse } from './types';
+import { Endpoint } from './types';
 
 export const request = async <TResponse>(
   endpoint: Endpoint,
@@ -37,20 +37,4 @@ export const request = async <TResponse>(
       }`,
     );
   }
-};
-
-export const getPreviousPageParam = (
-  firstPage: AxiosResponse<InsurpartsPageResponse<unknown>>,
-) => {
-  return firstPage.data.meta.page.links.previous
-    ? firstPage.data.meta.page.current_page - 1
-    : undefined;
-};
-
-export const getNextPageParam = (
-  lastPage: AxiosResponse<InsurpartsPageResponse<unknown>>,
-) => {
-  return lastPage.data.meta.page.links.next
-    ? lastPage.data.meta.page.current_page + 1
-    : undefined;
 };
