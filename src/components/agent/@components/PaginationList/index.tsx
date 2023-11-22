@@ -6,23 +6,18 @@ import {
 } from './select';
 
 const AgentPaginationList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [page, setPage] = useState(1);
 
   const {
     data,
     status,
-    fetchPreviousPage,
     hasPreviousPage,
     isFetchingPreviousPage,
-    fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   } =
     AgentQueries.useRepairShopAndPartsListQuery<SelectedRepsirShopAndPartsItem>(
-      {
-        page: currentPage,
-        page_size: 200,
-      },
+      { page, page_size: 200 },
       { select: selectRepairShopAndPartsList, keepPreviousData: true },
     );
 
@@ -83,8 +78,7 @@ const AgentPaginationList = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <button
             onClick={() => {
-              setCurrentPage((c) => c - 1);
-              fetchPreviousPage();
+              setPage(page - 1);
             }}
             disabled={!hasPreviousPage || isFetchingPreviousPage}
           >
@@ -94,11 +88,10 @@ const AgentPaginationList = () => {
                 ? 'Previous Page'
                 : 'First Page'}
           </button>
-          <span>{currentPage}</span>
+          <span>{page}</span>
           <button
             onClick={() => {
-              setCurrentPage((c) => c + 1);
-              fetchNextPage();
+              setPage(page + 1);
             }}
             disabled={!hasNextPage || isFetchingNextPage}
           >
