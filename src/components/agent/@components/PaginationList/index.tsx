@@ -11,8 +11,10 @@ const AgentPaginationList = () => {
   const {
     data,
     status,
+    fetchPreviousPage, // page 상태를 따로 관리하지 않을 경우 setPage(page - 1) 대체 가능
     hasPreviousPage,
     isFetchingPreviousPage,
+    fetchNextPage, // page 상태를 따로 관리하지 않을 경우 setPage(page + 1) 대체 가능
     hasNextPage,
     isFetchingNextPage,
   } =

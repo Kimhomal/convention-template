@@ -12,12 +12,13 @@ interface PageRes {
   total_count: number;
 }
 
+// FIXME: 응답이 없을 때 빈 문자열 대신 null을 반환하도록 백엔드에 요청
 export interface InsurpartsMeta {
-  page: PageRes;
+  page: PageRes | '';
   code: number;
-  systemCode?: string;
-  userMessage?: string;
-  systemMessage?: string;
+  systemCode: string | '';
+  userMessage: string | '';
+  systemMessage: string | '';
 }
 
 export interface InsurpartsResponse<T> {
