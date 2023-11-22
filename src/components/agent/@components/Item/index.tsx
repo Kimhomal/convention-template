@@ -1,9 +1,9 @@
 import { AgentQueries } from '../../../../apis';
-import { SelectedRepsirShopById, selectRepairshopById } from './select';
+import { SelectedRepairShopById, selectRepairshopById } from './select';
 
 const AgentItem = () => {
   const { data, status } =
-    AgentQueries.useRepairShopByIdQuery<SelectedRepsirShopById>(
+    AgentQueries.useRepairShopByIdQuery<SelectedRepairShopById>(
       { repairShopId: 417 },
       {
         select: selectRepairshopById,

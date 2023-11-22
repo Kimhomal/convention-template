@@ -9,12 +9,12 @@ import {
 } from './types';
 
 const getRepairShopById = (req: GetRepairShopByIdReq) => {
-  return request<GetRepairShopByIdRes>(AGENT_ENDPOINTS.getRepairshopById(req));
+  return request<GetRepairShopByIdRes>(AGENT_ENDPOINTS.getRepairShopById(req));
 };
 
 const getRepairshopAndPartsList = (req: GetRepairShopAndPartsListReq) => {
   return request<GetRepairShopAndPartsListRes>(
-    AGENT_ENDPOINTS.getRepairshopAndPartsList(req),
+    AGENT_ENDPOINTS.getRepairShopAndPartsList(req),
   );
 };
 
