@@ -5,6 +5,6 @@ export interface RepairShopById {
   service_badge: { id: number; active: boolean; icon_img: string }[];
 }
 
-export interface RepairShopByIdResponse {
+export interface RepairShopByIdRequest {
   id: number;
 }

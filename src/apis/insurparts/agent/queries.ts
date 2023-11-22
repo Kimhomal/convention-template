@@ -3,11 +3,11 @@ import { UseQueryOptions, useQuery } from '@tanstack/react-query';
 
 import { InsurpartsResponse } from '../../@axios/types';
 
-import { RepairShopById, RepairShopByIdResponse } from './types';
-import { AgentApis } from '../..';
+import { RepairShopById, RepairShopByIdRequest } from './types';
+import AgentServices from './services';
 
 export const useRepairshopByIdQuery = <T>(
-  axiosOptions: RepairShopByIdResponse,
+  axiosOptions: RepairShopByIdRequest,
   queryOptions: Omit<
     UseQueryOptions<
       AxiosResponse<InsurpartsResponse<RepairShopById>>,
@@ -25,7 +25,7 @@ export const useRepairshopByIdQuery = <T>(
   }
   return useQuery({
     queryKey: queryKey,
-    queryFn: () => AgentApis.getRepairshopById({ id: axiosOptions.id }),
+    queryFn: () => AgentServices.getRepairshopById({ id: axiosOptions.id }),
     enabled: !!queryOptions.enabled,
     ...queryOptions,
   });
