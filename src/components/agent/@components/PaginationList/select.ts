@@ -15,10 +15,12 @@ export const selectRepairShopAndPartsList = (
     AxiosResponse<InsurpartsResponse<GetRepairShopAndPartsListRes>>
   >,
 ): InfiniteData<SelectedRepsirShopAndPartsItem> => {
-  const currentItem = response.pages[0].data.data.results;
+  const currentItems = response.pages[0].data.data.results;
+
+  console.log('### response', response.pages);
 
   return {
-    pages: currentItem.map((r) => ({
+    pages: currentItems.map((r) => ({
       id: r.id,
       name: r.name,
       ownerName: r.owner_name,
