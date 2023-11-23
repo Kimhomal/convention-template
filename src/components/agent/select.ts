@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { InsurpartsResponse } from '../../apis/@axios/types';
 import { RepairShopById } from '../../apis/insurparts/agent/types';
 
-export interface SelectedRepsirshopById {
+export interface SelectedRepairshopById {
   name: string;
   address: string;
   serviceBadges: RepairShopById['service_badge'];
@@ -10,7 +10,7 @@ export interface SelectedRepsirshopById {
 
 export const selectRepairshopById = (
   response: AxiosResponse<InsurpartsResponse<RepairShopById>>,
-): SelectedRepsirshopById => {
+): SelectedRepairshopById => {
   const {
     data: { name, agent_carcenter, agent_virtual_carcenter, service_badge },
   } = response.data;
