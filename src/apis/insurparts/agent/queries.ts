@@ -1,38 +1,71 @@
 import { AxiosResponse } from 'axios';
-import { UseQueryOptions, useQuery } from '@tanstack/react-query';
+import {
+  UseInfiniteQueryOptions,
+  UseQueryOptions,
+  useInfiniteQuery,
+  useQuery,
+} from '@tanstack/react-query';
 
-import { InsurpartsResponse } from '../../@axios/types';
+import { InsurpartsPageResponse, InsurpartsResponse } from '../../@axios/types';
+import { getNextPageParam, getPreviousPageParam } from '../utils';
 
-import { RepairShopById, RepairShopByIdRequest } from './types';
 import AgentServices from './services';
+import {
+  GetRepairShopByIdRes,
+  GetRepairShopAndPartsListReq,
+  GetRepairShopAndPartsListRes,
+  GetRepairShopByIdReq,
+} from './types';
 
-export const useRepairshopByIdQuery = <T>(
-  axiosOptions: RepairShopByIdRequest,
-  queryOptions: Omit<
-    UseQueryOptions<
-      AxiosResponse<InsurpartsResponse<RepairShopById>>,
+type RepairShopByIdRes = AxiosResponse<
+  InsurpartsResponse<GetRepairShopByIdRes>
+>;
+
+const useRepairShopByIdQuery = <TData>(
+  axiosOptions: GetRepairShopByIdReq,
+  queryOptions?: Omit<
+    UseQueryOptions<RepairShopByIdRes, Error, TData, (string | number)[]>,
+    'queryFn'
+  >,
+) => {
+  return useQuery({
+    queryFn: () => AgentServices.getRepairShopById(axiosOptions),
+    ...queryOptions,
+  });
+};
+
+type RepairShopAndPartsListRes = AxiosResponse<
+  InsurpartsPageResponse<GetRepairShopAndPartsListRes>
+>;
+
+const useRepairShopAndPartsListQuery = <TData>(
+  axiosOptions: GetRepairShopAndPartsListReq,
+  queryOptions?: Omit<
+    UseInfiniteQueryOptions<
+      RepairShopAndPartsListRes,
       Error,
-      T,
-      (string | number)[]
+      TData,
+      RepairShopAndPartsListRes,
+      (string | GetRepairShopAndPartsListReq)[]
     >,
     'queryFn'
   >,
 ) => {
-  // TODO: 이부분 개선 필요
-  const queryKey: (string | number)[] = ['repairshop'];
-  if (queryOptions.queryKey) {
-    queryOptions.queryKey.forEach((item) => queryKey.push(item));
-  }
-  return useQuery({
-    queryKey: queryKey,
-    queryFn: () => AgentServices.getRepairshopById({ id: axiosOptions.id }),
-    enabled: !!queryOptions.enabled,
+  return useInfiniteQuery({
+    queryFn: ({ pageParam = 1 }) =>
+      AgentServices.getRepairshopAndPartsList({
+        page: pageParam,
+        ...axiosOptions,
+      }),
+    getPreviousPageParam,
+    getNextPageParam,
     ...queryOptions,
   });
 };
 
 const AgentQueries = {
-  useRepairshopByIdQuery,
+  useRepairShopByIdQuery,
+  useRepairShopAndPartsListQuery,
 };
 
 export default AgentQueries;

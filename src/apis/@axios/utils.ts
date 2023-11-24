@@ -1,12 +1,12 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import insurpartsInstance from './instances/insurparts';
-import { Endpoint, InsurpartsResponse } from './types';
+import { Endpoint } from './types';
 
-export const request = async <T>(
+export const request = async <TResponse>(
   endpoint: Endpoint,
   options?: AxiosRequestConfig,
-): Promise<AxiosResponse<InsurpartsResponse<T>>> => {
+): Promise<AxiosResponse<TResponse>> => {
   try {
     switch (endpoint.method) {
       case 'GET': {
