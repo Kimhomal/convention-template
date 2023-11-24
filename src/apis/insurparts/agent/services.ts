@@ -1,6 +1,6 @@
 import { InsurpartsPageResponse, InsurpartsResponse } from '../../@axios/types';
 import { request } from '../../@axios/utils';
-import AGENT_ENDPOINTS from './endpoints';
+import AgentEndpoints from './endpoints';
 import {
   GetRepairShopByIdReq,
   GetRepairShopByIdRes,
@@ -10,13 +10,13 @@ import {
 
 const getRepairShopById = (req: GetRepairShopByIdReq) => {
   return request<InsurpartsResponse<GetRepairShopByIdRes>>(
-    AGENT_ENDPOINTS.getRepairShopById(req),
+    AgentEndpoints.getRepairShopById(req),
   );
 };
 
 const getRepairshopAndPartsList = (req: GetRepairShopAndPartsListReq) => {
   return request<InsurpartsPageResponse<GetRepairShopAndPartsListRes>>(
-    AGENT_ENDPOINTS.getRepairShopAndPartsList(req),
+    AgentEndpoints.getRepairShopAndPartsList(req),
   );
 };
 

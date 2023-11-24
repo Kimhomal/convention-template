@@ -6,7 +6,7 @@ type AgentEndpoints = {
   getRepairShopAndPartsList: (req: GetRepairShopAndPartsListReq) => Endpoint;
 };
 
-const AGENT_ENDPOINTS: AgentEndpoints = {
+const AgentEndpoints: AgentEndpoints = {
   getRepairShopById: (req: GetRepairShopByIdReq) => ({
     url: `/agent/carcenter/${req.id}`,
     method: 'GET',
@@ -18,4 +18,4 @@ const AGENT_ENDPOINTS: AgentEndpoints = {
   }),
 };
 
-export default AGENT_ENDPOINTS;
+export default AgentEndpoints;
