@@ -9,7 +9,7 @@ import {
 import { InsurpartsPageResponse, InsurpartsResponse } from '../../@axios/types';
 import { getNextPageParam, getPreviousPageParam } from '../utils';
 
-import AgentApis from './services';
+import AgentServices from './services';
 import {
   GetRepairShopByIdRes,
   GetRepairShopAndPartsListReq,
@@ -24,20 +24,18 @@ type RepairShopByIdRes = AxiosResponse<
 const useRepairShopByIdQuery = <TData>(
   axiosOptions: GetRepairShopByIdReq,
   queryOptions?: Omit<
-    UseQueryOptions<
-      RepairShopByIdRes,
-      Error,
-      TData,
-      (string | GetRepairShopByIdReq)[]
-    >,
-    'queryKey' | 'queryFn' | 'enabled'
+    UseQueryOptions<RepairShopByIdRes, Error, TData, (string | number)[]>,
+    'queryFn'
   >,
 ) => {
   const { repairShopId } = axiosOptions;
+  // TODO: 이부분 개선 필요
+  const queryKey: (string | number)[] = ['repairshop'];
+  if (queryOptions?.queryKey) {
+    queryOptions.queryKey.forEach((item) => queryKey.push(item));
+  }
   return useQuery({
-    queryKey: ['repairShop', axiosOptions],
-    queryFn: () => AgentApis.getRepairShopById({ repairShopId }),
-    enabled: !!repairShopId,
+    queryFn: () => AgentServices.getRepairShopById({ repairShopId }),
     ...queryOptions,
   });
 };
@@ -62,7 +60,10 @@ const useRepairShopAndPartsListQuery = <TData>(
   return useInfiniteQuery({
     queryKey: ['repairShopAndParts', axiosOptions],
     queryFn: ({ pageParam = 1 }) =>
-      AgentApis.getRepairshopAndPartsList({ page: pageParam, ...axiosOptions }),
+      AgentServices.getRepairshopAndPartsList({
+        page: pageParam,
+        ...axiosOptions,
+      }),
     getPreviousPageParam,
     getNextPageParam,
     ...queryOptions,

@@ -6,6 +6,7 @@ const AgentItem = () => {
     AgentQueries.useRepairShopByIdQuery<SelectedRepairShopById>(
       { repairShopId: 417 },
       {
+        queryKey: ['repairShop', 417],
         select: selectRepairshopById,
       },
     );

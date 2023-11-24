@@ -1,6 +1,5 @@
 import { InsurpartsPageResponse, InsurpartsResponse } from '../../@axios/types';
 import { request } from '../../@axios/utils';
-
 import AGENT_ENDPOINTS from './endpoints';
 import {
   GetRepairShopByIdReq,
@@ -21,9 +20,9 @@ const getRepairshopAndPartsList = (req: GetRepairShopAndPartsListReq) => {
   );
 };
 
-const AgentApis = {
+const AgentServices = {
   getRepairShopById,
   getRepairshopAndPartsList,
 };
 
-export default AgentApis;
+export default AgentServices;

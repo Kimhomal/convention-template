@@ -24,3 +24,7 @@ export interface GetRepairShopAndPartsListRes {
   owner_name: string;
   // 생략
 }
+
+export interface RepairShopByIdRequest {
+  id: number;
+}
