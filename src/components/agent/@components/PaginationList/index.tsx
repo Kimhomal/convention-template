@@ -5,6 +5,10 @@ import {
   selectRepairShopAndPartsList,
 } from './select';
 
+const repairShopAndPartsAxiosOptions = {
+  page_size: 200,
+};
+
 const AgentPaginationList = () => {
   const [page, setPage] = useState(1);
 
@@ -19,8 +23,15 @@ const AgentPaginationList = () => {
     isFetchingNextPage,
   } =
     AgentQueries.useRepairShopAndPartsListQuery<SelectedRepsirShopAndPartsItem>(
-      { page, page_size: 200 },
-      { select: selectRepairShopAndPartsList, keepPreviousData: true },
+      { page, ...repairShopAndPartsAxiosOptions },
+      {
+        queryKey: [
+          'repairShopAndParts',
+          { page, ...repairShopAndPartsAxiosOptions },
+        ],
+        select: selectRepairShopAndPartsList,
+        keepPreviousData: true,
+      },
     );
 
   if (status === 'loading') {

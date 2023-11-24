@@ -8,7 +8,7 @@ type AgentEndpoints = {
 
 const AGENT_ENDPOINTS: AgentEndpoints = {
   getRepairShopById: (req: GetRepairShopByIdReq) => ({
-    url: `/agent/carcenter/${req.repairShopId}`,
+    url: `/agent/carcenter/${req.id}`,
     method: 'GET',
   }),
   getRepairShopAndPartsList: (req: GetRepairShopAndPartsListReq) => ({

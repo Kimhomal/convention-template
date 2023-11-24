@@ -1,7 +1,7 @@
 import { PageReq } from '../../@axios/types';
 
 export interface GetRepairShopByIdReq {
-  repairShopId: number;
+  id: number;
 }
 
 export interface GetRepairShopByIdRes {

@@ -4,7 +4,7 @@ import { SelectedRepairShopById, selectRepairshopById } from './select';
 const AgentItem = () => {
   const { data, status } =
     AgentQueries.useRepairShopByIdQuery<SelectedRepairShopById>(
-      { repairShopId: 417 },
+      { id: 417 },
       {
         queryKey: ['repairShop', 417],
         select: selectRepairshopById,

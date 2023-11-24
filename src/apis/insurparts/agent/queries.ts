@@ -28,14 +28,8 @@ const useRepairShopByIdQuery = <TData>(
     'queryFn'
   >,
 ) => {
-  const { repairShopId } = axiosOptions;
-  // TODO: 이부분 개선 필요
-  const queryKey: (string | number)[] = ['repairshop'];
-  if (queryOptions?.queryKey) {
-    queryOptions.queryKey.forEach((item) => queryKey.push(item));
-  }
   return useQuery({
-    queryFn: () => AgentServices.getRepairShopById({ repairShopId }),
+    queryFn: () => AgentServices.getRepairShopById(axiosOptions),
     ...queryOptions,
   });
 };
@@ -54,11 +48,10 @@ const useRepairShopAndPartsListQuery = <TData>(
       RepairShopAndPartsListRes,
       (string | GetRepairShopAndPartsListReq)[]
     >,
-    'queryKey' | 'queryFn'
+    'queryFn'
   >,
 ) => {
   return useInfiniteQuery({
-    queryKey: ['repairShopAndParts', axiosOptions],
     queryFn: ({ pageParam = 1 }) =>
       AgentServices.getRepairshopAndPartsList({
         page: pageParam,

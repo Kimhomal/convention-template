@@ -4,13 +4,18 @@ import {
   selectRepairShopAndPartsList,
 } from './select';
 
+const repairShopAndPartsAxiosOptions = {
+  page_size: 200,
+};
+
 const AgentInfiniteList = () => {
   const { data, status, fetchNextPage, hasNextPage, isFetchingNextPage } =
     AgentQueries.useRepairShopAndPartsListQuery<SelectedRepsirShopAndPartsItem>(
+      repairShopAndPartsAxiosOptions,
       {
-        page_size: 200,
+        queryKey: ['repairShopAndParts', repairShopAndPartsAxiosOptions],
+        select: selectRepairShopAndPartsList,
       },
-      { select: selectRepairShopAndPartsList },
     );
 
   if (status === 'loading') {
